@@ -1,0 +1,25 @@
+.logo {
+	display: flex;
+	align-items: center;
+	gap: 0.4em;
+	font-size: 1.5em;
+	font-weight: bold;
+	padding: 1em;
+
+	&__icon {
+		color: #0984e3;
+		font-size: 1em;
+		flex: none;
+	}
+
+	&__text {
+		white-space: nowrap;
+		color: #333;
+	}
+
+	@media (max-width: 410px) {
+		&__text {
+			font-size: 0.8em;
+		}
+	}
+}
