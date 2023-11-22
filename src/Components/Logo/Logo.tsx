@@ -3,8 +3,8 @@ import { IoMdPulse } from "react-icons/io";
 
 const Logo: React.FC = () => {
 	return (
-		<div className="flex items-center gap-2 text-2xl font-bold p-5 mb-4">
-			<IoMdPulse className="text-blue-500 text-2xl" />
+		<div className="mb-4 flex items-center gap-2 p-5 text-2xl font-bold">
+			<IoMdPulse className="text-2xl text-indigo-500" />
 			<span className="whitespace-nowrap text-gray-700 dark:text-white">
 				Weather Pulse
 			</span>

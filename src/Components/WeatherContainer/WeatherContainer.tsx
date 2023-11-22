@@ -8,7 +8,7 @@ const WeatherContainer: React.FC = () => {
 
 	const openMenuClasses = "menu-open";
 	const closeMenuClasses = "w-full";
-	const weatherContainerClasses = `flex h-screen overflow-y-auto flex-col transition-all duration-300 ease-in ${
+	const weatherContainerClasses = `p-5 flex h-screen overflow-y-auto flex-col transition-all duration-300 ease-in ${
 		isMenuOpen ? openMenuClasses : closeMenuClasses
 	}`;
 
