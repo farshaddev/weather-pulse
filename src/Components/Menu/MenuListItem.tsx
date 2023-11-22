@@ -1,7 +1,6 @@
 import React from "react";
 
 interface MenuListItemProps {
-	index: number;
 	text: string;
 	icon: React.ReactNode;
 	href: string;
@@ -9,16 +8,17 @@ interface MenuListItemProps {
 }
 
 const MenuListItem: React.FC<MenuListItemProps> = ({
-	index,
 	text,
 	icon,
 	href,
 	className,
 }) => {
 	return (
-		<li key={index}>
+		<li>
 			<a
-				className={`menu__list-link${className ? ` ${className}` : ""}`}
+				className={`text-blue-500 hover:bg-gray-100 text-base no-underline sm:text-xl sm:leading-extra-loose leading-extra-loose flex items-center gap-2 px-8 transition-all duration-200 ease-in${
+					className ? ` ${className}` : ""
+				}`}
 				href={href}
 				target="_blank"
 				rel="noopener noreferrer"

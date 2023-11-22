@@ -13,26 +13,26 @@ export interface menuItemType {
 
 export const menuItems: menuItemType[] = [
 	{
-		icon: <BsTelegram data-testid={`Telegram-icon`} />,
-		className: "menu__list-link--telegram",
+		icon: <BsTelegram />,
+		className: "text-telegram-blue flex-none",
 		text: "Telegram",
 		href: "https://t.me/farshaddev",
 	},
 	{
-		icon: <FaLinkedinIn data-testid={`Linkedin-icon`} />,
-		className: "menu__list-link--linkedin",
+		icon: <FaLinkedinIn />,
+		className: "text-linkedin-blue flex-none",
 		text: "Linkedin",
 		href: "https://www.linkedin.com/in/farshaddevelopment",
 	},
 	{
-		icon: <BsGithub data-testid={`GitHub-icon`} />,
-		className: "menu__list-link--github",
+		icon: <BsGithub />,
+		className: "text-github-green flex-none",
 		text: "GitHub",
 		href: "https://github.com/farshaddev/weather-pulse",
 	},
 	{
-		icon: <BiLogoGmail data-testid={`Gmail-icon`} />,
-		className: "menu__list-link--gmail",
+		icon: <BiLogoGmail />,
+		className: "text-gmail-red flex-none",
 		text: "Gmail",
 		href: "mailto:farshad.development@gmail.com",
 	},
