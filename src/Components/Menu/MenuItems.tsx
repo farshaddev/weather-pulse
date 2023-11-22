@@ -14,25 +14,25 @@ export interface menuItemType {
 export const menuItems: menuItemType[] = [
 	{
 		icon: <BsTelegram />,
-		className: "text-telegram-blue flex-none",
+		className: "text-socials-telegram-blue dark:text-slate-300 flex-none",
 		text: "Telegram",
 		href: "https://t.me/farshaddev",
 	},
 	{
 		icon: <FaLinkedinIn />,
-		className: "text-linkedin-blue flex-none",
+		className: "text-socials-linkedin-blue dark:text-slate-300 flex-none",
 		text: "Linkedin",
 		href: "https://www.linkedin.com/in/farshaddevelopment",
 	},
 	{
 		icon: <BsGithub />,
-		className: "text-github-green flex-none",
+		className: "text-socials-github-green dark:text-slate-300 flex-none",
 		text: "GitHub",
 		href: "https://github.com/farshaddev/weather-pulse",
 	},
 	{
 		icon: <BiLogoGmail />,
-		className: "text-gmail-red flex-none",
+		className: "text-socials-gmail-red dark:text-slate-300 flex-none",
 		text: "Gmail",
 		href: "mailto:farshad.development@gmail.com",
 	},

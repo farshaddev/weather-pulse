@@ -16,7 +16,7 @@ const MenuListItem: React.FC<MenuListItemProps> = ({
 	return (
 		<li>
 			<a
-				className={`text-blue-500 hover:bg-gray-100 text-base no-underline sm:text-xl sm:leading-extra-loose leading-extra-loose flex items-center gap-2 px-8 transition-all duration-200 ease-in${
+				className={`text-blue-500 hover:bg-gray-100 dark:hover:bg-slate-800 text-base no-underline sm:text-xl sm:leading-extra-loose leading-extra-loose flex items-center gap-2 px-8 transition-all duration-200 ease-in${
 					className ? ` ${className}` : ""
 				}`}
 				href={href}
