@@ -8,7 +8,6 @@ const WeatherContainer: React.FC = () => {
 	const { isMenuOpen } = useMenu();
 	const [selectedCity, setSelectedCity] = useState<CityType | null>(null);
 
-
 	const openMenuClasses = "menu-open";
 	const closeMenuClasses = "w-full";
 	const weatherContainerClasses = `p-5 flex h-screen overflow-y-auto flex-col transition-all duration-300 ease-in ${
@@ -17,7 +16,10 @@ const WeatherContainer: React.FC = () => {
 
 	return (
 		<div className={weatherContainerClasses}>
-			<AutocompleteSearch selectedCity={selectedCity} setSelectedCity={setSelectedCity} />
+			<AutocompleteSearch
+				selectedCity={selectedCity}
+				setSelectedCity={setSelectedCity}
+			/>
 		</div>
 	);
 };
