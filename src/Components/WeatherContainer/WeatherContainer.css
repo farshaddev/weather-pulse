@@ -1,0 +1,16 @@
+.menu-open {
+    width: calc(100% - 345px);
+}
+
+@media (max-width: 1199px) {
+    .menu-open {
+        width: 100%;
+        transform: translateX(345px);
+    }
+}
+
+@media (max-width: 410px) {
+    .menu-open {
+        transform: translateX(285px);
+    }
+}
