@@ -3,11 +3,15 @@ import citiesData from "../../json/cities.json";
 import { CityType } from "../../types/cities";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const AutocompleteSearch = () => {
+interface AutocompleteSearchProps {
+	selectedCity: (CityType | null) | undefined;
+	setSelectedCity: (city: CityType | null) => void;
+}
+
+const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({selectedCity, setSelectedCity}) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [suggestedCities, setSuggestedCities] = useState<CityType[]>([]);
-	const [selectedCity, setSelectedCity] = useState<CityType | null>(null);
 	const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>(
 		undefined,
 	);

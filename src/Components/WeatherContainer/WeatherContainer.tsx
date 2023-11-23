@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./WeatherContainer.css";
 import AutocompleteSearch from "../AutocompleteSearch/AutocompleteSearch";
 import { useMenu } from "../../contexts/MenuContext";
+import { CityType } from "../../types/cities";
 
 const WeatherContainer: React.FC = () => {
 	const { isMenuOpen } = useMenu();
+	const [selectedCity, setSelectedCity] = useState<CityType | null>(null);
+
 
 	const openMenuClasses = "menu-open";
 	const closeMenuClasses = "w-full";
@@ -14,7 +17,7 @@ const WeatherContainer: React.FC = () => {
 
 	return (
 		<div className={weatherContainerClasses}>
-			<AutocompleteSearch />
+			<AutocompleteSearch selectedCity={selectedCity} setSelectedCity={setSelectedCity} />
 		</div>
 	);
 };
