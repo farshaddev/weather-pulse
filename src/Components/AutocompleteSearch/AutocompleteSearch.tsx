@@ -2,15 +2,18 @@ import React, { ChangeEvent, useState } from "react";
 import citiesData from "../../json/cities.json";
 import { CityType } from "../../types/cities";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import BounceDots from "../BounceDots/BounceDots";
 
 interface AutocompleteSearchProps {
 	selectedCity: (CityType | null) | undefined;
 	setSelectedCity: (city: CityType | null) => void;
+	setCurrentWeatherData: (arg0: null) => void;
 }
 
 const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 	selectedCity,
 	setSelectedCity,
+	setCurrentWeatherData,
 }) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -58,76 +61,66 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 		setSuggestedCities([]);
 		setSelectedCity(null);
 		setSearchTerm("");
+		setCurrentWeatherData(null);
 	};
 
 	return (
-		<div className="flex w-1/3 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
-			<label
-				htmlFor="citySearch"
-				className="mb-2 text-lg font-medium text-gray-300"
-			>
-				Search your City:
-			</label>
-			<div className="relative flex items-center gap-2">
-				{loading && (
-					<AiOutlineLoading3Quarters className="absolute right-1.5 top-2 animate-spin text-sm text-slate-400" />
-				)}
-				<input
-					id="citySearch"
-					type="text"
-					className="peer h-8 flex-1 rounded-md bg-gray-200 p-1 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:bg-slate-600 dark:focus:border-indigo-900 dark:focus:ring-indigo-900"
-					value={searchTerm}
-					onFocus={handleReset}
-					onChange={handleInputChange}
-				/>
-				{searchTerm === "" ? (
-					<>
-						<div className="pointer-events-none absolute left-1.5 top-1.5 flex gap-1 text-sm text-slate-400">
-							Lon
-							<span className="animate-bounce">.</span>
-							<span
-								className="animate-bounce"
-								style={{ animationDelay: "100ms" }}
-							>
-								.
-							</span>
-							<span
-								className="animate-bounce"
-								style={{ animationDelay: "200ms" }}
-							>
-								.
-							</span>
-						</div>
-						<span className="flex-none text-xs text-slate-400">
-							Type 3 Charecter at least.
-						</span>
-					</>
-				) : !loading &&
-				  searchTerm.length > 2 &&
-				  suggestedCities.length < 1 &&
-				  !selectedCity ? (
-					<span className="flex-none text-xs text-slate-400">
-						Not Found! Try "London" instead.
-					</span>
-				) : (
-					""
-				)}
-				{suggestedCities.length > 0 && (
-					<div className="absolute left-0 top-full mt-1 max-h-40 w-full overflow-y-auto overflow-x-hidden rounded-md bg-gray-200 p-1 dark:bg-slate-600">
-						<ul>
-							{suggestedCities.map((city) => (
-								<li
-									key={city.id}
-									className="cursor-pointer rounded-md p-2 text-sm leading-4 hover:bg-gray-300 dark:hover:bg-slate-800"
-									onClick={() => handleCitySelect(city)}
-								>
-									{city.name}, {city.country}
-								</li>
-							))}
-						</ul>
+		<div className="relative flex items-center gap-2">
+			{loading && (
+				<AiOutlineLoading3Quarters className="absolute right-1.5 top-2 animate-spin text-sm text-slate-400" />
+			)}
+			<input
+				type="text"
+				className="peer h-8 flex-1 rounded-md bg-gray-200 p-1 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:bg-slate-600 dark:focus:border-slate-900 dark:focus:ring-slate-900"
+				value={searchTerm}
+				onFocus={handleReset}
+				onChange={handleInputChange}
+				disabled={selectedCity ? true : false}
+			/>
+			{selectedCity && (
+				<button
+					className="rounded-md bg-slate-300 p-2 text-xs text-slate-700 transition-all duration-200 hover:bg-slate-200"
+					type="button"
+					onClick={() => handleReset()}
+				>
+					Search Again
+				</button>
+			)}
+			{searchTerm === "" ? (
+				<>
+					<div className="pointer-events-none absolute left-1.5 top-1.5 flex gap-1 text-sm text-slate-400">
+						Lon
+						<BounceDots />
 					</div>
-				)}
-			</div>
+					<span className="flex-none text-xs text-slate-400">
+						Type 3 Charecter at least.
+					</span>
+				</>
+			) : !loading &&
+			  searchTerm.length > 2 &&
+			  suggestedCities.length < 1 &&
+			  !selectedCity ? (
+				<span className="flex-none text-xs text-slate-400">
+					Not Found! Try "London" instead.
+				</span>
+			) : (
+				""
+			)}
+			{suggestedCities.length > 0 && (
+				<div className="absolute left-0 top-full z-10 mt-1 max-h-40 w-full overflow-y-auto overflow-x-hidden rounded-md bg-gray-200 p-1 dark:bg-slate-600">
+					<ul>
+						{suggestedCities.map((city) => (
+							<li
+								key={city.id}
+								className="cursor-pointer rounded-md p-2 text-sm leading-4 hover:bg-gray-300 dark:hover:bg-slate-800"
+								onClick={() => handleCitySelect(city)}
+							>
+								{city.name}, {city.country}
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
 		</div>
 	);
 };

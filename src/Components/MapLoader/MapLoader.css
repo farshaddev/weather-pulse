@@ -1,0 +1,8 @@
+.leaflet-marker-icon {
+    width: 41px !important;
+    margin-left: -20.5px !important;
+    transition: all 0.1s ease-in;
+}
+.leaflet-shadow-pane {
+    display: none;
+}
