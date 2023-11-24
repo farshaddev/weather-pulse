@@ -10,6 +10,11 @@ import MapLoader from "../MapLoader/MapLoader";
 import MapCoordinates from "../MapCoordinates/MapCoordinates";
 // @ts-ignore
 import LoadingSVG from "../../svg/loading.svg";
+import BounceDots from "../BounceDots/BounceDots";
+import { FetchWeatherParamsType } from "../../types/fetchWeatherParams";
+import { WeatherForecastType } from "../../types/weatherForcast";
+import { Popup } from "react-leaflet";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const WeatherContainer: React.FC = () => {
 	const { isMenuOpen } = useMenu();
@@ -18,6 +23,8 @@ const WeatherContainer: React.FC = () => {
 	const [selectedCity, setSelectedCity] = useState<CityType | null>(null);
 	const [currentWeatherData, setCurrentWeatherData] =
 		useState<CurrentConditionType | null>(null);
+	const [WeatherForecastData, setWeatherForecastData] =
+		useState<WeatherForecastType | null>(null);
 
 	const [selectedCoordinates, setSelectedCoordinates] = useState<
 		[number, number] | null
@@ -29,37 +36,34 @@ const WeatherContainer: React.FC = () => {
 		isMenuOpen ? openMenuClasses : closeMenuClasses
 	}`;
 
-	const fetchCurrentConditionsData = useCallback(async () => {
-		type ParamsType = {
-			q?: string;
-			lat?: number;
-			lon?: number;
-			units?: string;
-			appid: string;
-		};
-
+	const fetchWeatherData = useCallback(async () => {
 		try {
-			const params: ParamsType = {
+			const params: FetchWeatherParamsType = {
 				units: "metric",
 				appid: "7828a641250d5ab563aeda84c0d75e38",
 			};
-
 			if (selectedCity) params.q = selectedCity.name;
-
 			if (selectedCoordinates) {
 				setConfirmCoordinates(true);
 				params.lat = selectedCoordinates[0];
 				params.lon = selectedCoordinates[1];
 			}
-
 			if (params.q || (params.lat && params.lon)) {
-				const response = await axios.get(
+				const currentWeatherConditionResponse = await axios.get(
 					"https://api.openweathermap.org/data/2.5/weather",
 					{
 						params: params,
 					}
 				);
-				setCurrentWeatherData(response.data);
+				setCurrentWeatherData(currentWeatherConditionResponse.data);
+
+				const WeatherForecastResponse = await axios.get(
+					"https://api.openweathermap.org/data/2.5/forecast",
+					{
+						params: params,
+					}
+				);
+				setWeatherForecastData(WeatherForecastResponse.data);
 			} else {
 				console.log("no city or coordinates selected");
 			}
@@ -70,15 +74,15 @@ const WeatherContainer: React.FC = () => {
 
 	useEffect(() => {
 		if (selectedCity) {
-			fetchCurrentConditionsData();
+			fetchWeatherData();
 		}
-	}, [fetchCurrentConditionsData, selectedCity]);
+	}, [fetchWeatherData, selectedCity]);
 
 	return (
 		<div className={weatherContainerClasses}>
 			{!confirmCoordinates && !selectedCity && (
 				<MapLoader
-					className="absolute left-0 top-0 z-0 h-full w-full cursor-pointer opacity-70"
+					className="absolute left-0 top-0 z-0 h-full w-full cursor-pointer"
 					clickedPosition={selectedCoordinates}
 					setClickedPosition={setSelectedCoordinates}
 				/>
@@ -97,7 +101,8 @@ const WeatherContainer: React.FC = () => {
 						setCurrentWeatherData={setCurrentWeatherData}
 						clickedPosition={selectedCoordinates}
 						setClickedPosition={setSelectedCoordinates}
-						handleConfirm={fetchCurrentConditionsData}
+						handleConfirm={fetchWeatherData}
+						confirmCoordinates={confirmCoordinates}
 						setConfirmCoordinates={setConfirmCoordinates}
 					/>
 				) : (
@@ -110,26 +115,86 @@ const WeatherContainer: React.FC = () => {
 			</div>
 
 			<div className="relative z-10 flex w-full content-start gap-5">
-				{(selectedCity || confirmCoordinates) && !currentWeatherData ? (
-					<div className="flex h-full w-full items-center justify-center gap-1">
+				{(selectedCity || confirmCoordinates) &&
+				!currentWeatherData &&
+				!WeatherForecastData ? (
+					<div className="flex h-full w-full items-center justify-center gap-1 p-5">
 						<img src={LoadingSVG} alt="weather loading" />
-						Loading<span className="animate-bounce">.</span>
-						<span
-							className="animate-bounce"
-							style={{ animationDelay: "100ms" }}
-						>
-							.
-						</span>
-						<span
-							className="animate-bounce"
-							style={{ animationDelay: "200ms" }}
-						>
-							.
-						</span>
+						Loading
+						<BounceDots />
 					</div>
 				) : (
-					currentWeatherData && (
-						<CurrentConditions {...currentWeatherData} />
+					currentWeatherData &&
+					WeatherForecastData && (
+						<>
+							<CurrentConditions {...currentWeatherData} />
+							<MapLoader
+								className="h-414 w-2/3 rounded-md"
+								center={[
+									WeatherForecastData.city.coord.lat,
+									WeatherForecastData.city.coord.lon,
+								]}
+								initialZoom={10}
+								clickedPosition={[
+									WeatherForecastData.city.coord.lat,
+									WeatherForecastData.city.coord.lon,
+								]}
+							>
+								<Popup>
+									<div className="map-popup">
+										<div className="mb-2 flex items-center gap-1 text-sm text-gray-400">
+											<FaMapMarkerAlt />
+											{
+												WeatherForecastData.city.name
+											},{" "}
+											<span className="font-semibold">
+												{
+													WeatherForecastData.city
+														.country
+												}
+											</span>
+										</div>
+										<div className="flex items-center justify-between gap-2">
+											<div className="flex items-center gap-2">
+												<span className="text-xs text-indigo-300">
+													Population:
+												</span>
+												<span className="text-sm text-gray-400">
+													{
+														WeatherForecastData.city
+															.population
+													}
+												</span>
+											</div>
+										</div>
+										<div className="flex items-center justify-between gap-2">
+											<div className="flex items-center gap-2">
+												<span className="text-xs text-indigo-300">
+													Latitude:
+												</span>
+												<span className="text-sm text-gray-400">
+													{
+														WeatherForecastData.city
+															.coord.lat
+													}
+												</span>
+											</div>
+											<div className="flex items-center gap-2">
+												<span className="text-xs text-indigo-300">
+													Longitude:
+												</span>
+												<span className="text-sm text-gray-400">
+													{
+														WeatherForecastData.city
+															.coord.lon
+													}
+												</span>
+											</div>
+										</div>
+									</div>
+								</Popup>
+							</MapLoader>
+						</>
 					)
 				)}
 			</div>

@@ -7,6 +7,7 @@ interface MapCoordinatesProps {
 	setClickedPosition: (arg0: MapCoordinatesType | null) => void;
 	setCurrentWeatherData: (arg0: null) => void;
 	handleConfirm: () => void;
+	confirmCoordinates: boolean;
 	setConfirmCoordinates: (arg0: boolean) => void;
 }
 
@@ -15,6 +16,7 @@ const MapCoordinates: React.FC<MapCoordinatesProps> = ({
 	setClickedPosition,
 	setCurrentWeatherData,
 	handleConfirm,
+	confirmCoordinates,
 	setConfirmCoordinates,
 }) => {
 	const handleReset = () => {
@@ -49,13 +51,15 @@ const MapCoordinates: React.FC<MapCoordinatesProps> = ({
 				>
 					Search Again
 				</button>
-				<button
-					className="rounded-md bg-indigo-600 p-2 text-gray-100 transition-all duration-200 hover:bg-indigo-700"
-					type="button"
-					onClick={handleConfirm}
-				>
-					Confirm Coordinates
-				</button>
+				{!confirmCoordinates && (
+					<button
+						className="rounded-md bg-indigo-600 p-2 text-gray-100 transition-all duration-200 hover:bg-indigo-700"
+						type="button"
+						onClick={handleConfirm}
+					>
+						Confirm Coordinates
+					</button>
+				)}
 			</div>
 		</div>
 	);

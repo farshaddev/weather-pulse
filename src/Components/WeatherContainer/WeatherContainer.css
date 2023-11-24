@@ -2,6 +2,19 @@
     width: calc(100% - 345px);
 }
 
+.leaflet-container {
+    background: transparent !important;
+}
+.leaflet-pane.leaflet-tile-pane {
+    opacity: 0.7;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background: rgb(51, 65, 85) !important;
+    color: rgb(229, 231, 235) !important;
+}
+
 @media (max-width: 1199px) {
     .menu-open {
         width: 100%;

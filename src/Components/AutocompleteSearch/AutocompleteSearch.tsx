@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import citiesData from "../../json/cities.json";
 import { CityType } from "../../types/cities";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import BounceDots from "../BounceDots/BounceDots";
 
 interface AutocompleteSearchProps {
 	selectedCity: (CityType | null) | undefined;
@@ -89,19 +90,7 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 				<>
 					<div className="pointer-events-none absolute left-1.5 top-1.5 flex gap-1 text-sm text-slate-400">
 						Lon
-						<span className="animate-bounce">.</span>
-						<span
-							className="animate-bounce"
-							style={{ animationDelay: "100ms" }}
-						>
-							.
-						</span>
-						<span
-							className="animate-bounce"
-							style={{ animationDelay: "200ms" }}
-						>
-							.
-						</span>
+						<BounceDots />
 					</div>
 					<span className="flex-none text-xs text-slate-400">
 						Type 3 Charecter at least.
