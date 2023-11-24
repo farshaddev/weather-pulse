@@ -9,7 +9,7 @@ const ExtendedMarker = (props: ExtendedMarkerProps) => {
 	const markerRef = useRef<ExtendedMarkerProps>(null);
 
 	useEffect(() => {
-		if (markerRef.current) {
+		if (markerRef.current && markerRef.current.openPopup) {
 			markerRef.current.openPopup();
 		}
 	}, []);

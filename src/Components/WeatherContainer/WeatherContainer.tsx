@@ -13,8 +13,7 @@ import LoadingSVG from "../../svg/loading.svg";
 import BounceDots from "../BounceDots/BounceDots";
 import { FetchWeatherParamsType } from "../../types/fetchWeatherParams";
 import { WeatherForecastType } from "../../types/weatherForcast";
-import { Popup } from "react-leaflet";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import CityMapInfo from "../CityMapInfo/CityMapInfo";
 
 const WeatherContainer: React.FC = () => {
 	const { isMenuOpen } = useMenu();
@@ -128,72 +127,13 @@ const WeatherContainer: React.FC = () => {
 					WeatherForecastData && (
 						<>
 							<CurrentConditions {...currentWeatherData} />
-							<MapLoader
-								className="h-414 w-2/3 rounded-md"
-								center={[
-									WeatherForecastData.city.coord.lat,
-									WeatherForecastData.city.coord.lon,
-								]}
-								initialZoom={10}
-								clickedPosition={[
-									WeatherForecastData.city.coord.lat,
-									WeatherForecastData.city.coord.lon,
-								]}
-							>
-								<Popup>
-									<div className="map-popup">
-										<div className="mb-2 flex items-center gap-1 text-sm text-gray-400">
-											<FaMapMarkerAlt />
-											{
-												WeatherForecastData.city.name
-											},{" "}
-											<span className="font-semibold">
-												{
-													WeatherForecastData.city
-														.country
-												}
-											</span>
-										</div>
-										<div className="flex items-center justify-between gap-2">
-											<div className="flex items-center gap-2">
-												<span className="text-xs text-indigo-300">
-													Population:
-												</span>
-												<span className="text-sm text-gray-400">
-													{
-														WeatherForecastData.city
-															.population
-													}
-												</span>
-											</div>
-										</div>
-										<div className="flex items-center justify-between gap-2">
-											<div className="flex items-center gap-2">
-												<span className="text-xs text-indigo-300">
-													Latitude:
-												</span>
-												<span className="text-sm text-gray-400">
-													{
-														WeatherForecastData.city
-															.coord.lat
-													}
-												</span>
-											</div>
-											<div className="flex items-center gap-2">
-												<span className="text-xs text-indigo-300">
-													Longitude:
-												</span>
-												<span className="text-sm text-gray-400">
-													{
-														WeatherForecastData.city
-															.coord.lon
-													}
-												</span>
-											</div>
-										</div>
-									</div>
-								</Popup>
-							</MapLoader>
+							<CityMapInfo
+								lat={WeatherForecastData.city.coord.lat}
+								lon={WeatherForecastData.city.coord.lon}
+								name={WeatherForecastData.city.name}
+								country={WeatherForecastData.city.country}
+								population={WeatherForecastData.city.population}
+							/>
 						</>
 					)
 				)}
