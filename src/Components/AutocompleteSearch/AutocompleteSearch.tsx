@@ -8,12 +8,15 @@ interface AutocompleteSearchProps {
 	setSelectedCity: (city: CityType | null) => void;
 }
 
-const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({selectedCity, setSelectedCity}) => {
+const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
+	selectedCity,
+	setSelectedCity,
+}) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [suggestedCities, setSuggestedCities] = useState<CityType[]>([]);
 	const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>(
-		undefined,
+		undefined
 	);
 
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +33,7 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({selectedCity, se
 			const newTimeoutId = setTimeout(() => {
 				const filteredCities = (citiesData as CityType[]).filter(
 					(city: CityType) =>
-						city.name.toLowerCase().includes(value.toLowerCase()),
+						city.name.toLowerCase().includes(value.toLowerCase())
 				);
 
 				setSuggestedCities(filteredCities);
@@ -58,11 +61,14 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({selectedCity, se
 	};
 
 	return (
-		<div className="flex w-1/3 items-center gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
-			<label htmlFor="citySearch" className="flex-initial text-sm">
+		<div className="flex w-1/3 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+			<label
+				htmlFor="citySearch"
+				className="mb-2 text-lg font-medium text-gray-300"
+			>
 				Search your City:
 			</label>
-			<div className="relative flex flex-1 items-center gap-2">
+			<div className="relative flex items-center gap-2">
 				{loading && (
 					<AiOutlineLoading3Quarters className="absolute right-1.5 top-2 animate-spin text-sm text-slate-400" />
 				)}
