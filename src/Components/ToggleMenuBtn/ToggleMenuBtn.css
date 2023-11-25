@@ -1,0 +1,32 @@
+.menu-toggle__btn {
+	display: flex;
+	height: 100%;
+	width: 4em;
+	border: 0;
+	background: #1677ffbf;
+	flex-direction: column;
+	padding: 0.8em;
+	justify-content: center;
+	gap: 0.6em;
+	cursor: pointer;
+}
+
+.menu-toggle__btn-line {
+	height: 0.2em;
+	width: 100%;
+	background: #ffffff;
+	border-radius: 1em;
+	transition: all 0.2s ease-in;
+}
+
+.menu-toggle__btn--open > span:first-child {
+	transform: rotate(45deg) translate(7px, 8px);
+}
+
+.menu-toggle__btn--open > span:nth-child(2) {
+	opacity: 0;
+}
+
+.menu-toggle__btn--open > span:last-child {
+	transform: rotate(-45deg) translate(7px, -8px);
+}
