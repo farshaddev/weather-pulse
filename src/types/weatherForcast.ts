@@ -51,7 +51,7 @@ type WeatherForecast_List_SysType = {
 	pod: string;
 };
 
-type WeatherForecast_ListType = {
+export type WeatherForecast_ListType = {
 	dt: number;
 	main: WeatherForecast_List_MainType;
 	weather: WeatherForecast_List_WeatherType[];

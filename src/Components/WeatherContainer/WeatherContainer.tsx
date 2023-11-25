@@ -8,13 +8,26 @@ import axios from "axios";
 import { CurrentConditionType } from "../../types/currentCondition";
 import MapLoader from "../MapLoader/MapLoader";
 import MapCoordinates from "../MapCoordinates/MapCoordinates";
-// @ts-ignore
-import LoadingSVG from "../../svg/loading.svg";
-import BounceDots from "../BounceDots/BounceDots";
 import { FetchWeatherParamsType } from "../../types/fetchWeatherParams";
-import { WeatherForecastType } from "../../types/weatherForcast";
-import { Popup } from "react-leaflet";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import {
+	WeatherForecastType,
+	WeatherForecast_ListType,
+} from "../../types/weatherForcast";
+import CityMapInfo from "../CityMapInfo/CityMapInfo";
+import DailyForecast from "../DailyForecast/DailyForecast";
+import HourlyForecast from "../HourlyForecast/HourlyForecast";
+import AirPollution from "../AirPollution/AirPollution";
+import { AirPollutionType } from "../../types/airPollution";
+import Loading from "../Loading/Loading";
+
+interface HourlyForecastType {
+	time: string;
+	items: WeatherForecast_ListType[];
+}
+interface DailyForecastType {
+	date: string;
+	items: WeatherForecast_ListType[];
+}
 
 const WeatherContainer: React.FC = () => {
 	const { isMenuOpen } = useMenu();
@@ -25,6 +38,15 @@ const WeatherContainer: React.FC = () => {
 		useState<CurrentConditionType | null>(null);
 	const [WeatherForecastData, setWeatherForecastData] =
 		useState<WeatherForecastType | null>(null);
+	const [airPollutionData, setAirPollutionData] =
+		useState<AirPollutionType | null>(null);
+
+	const [hourlyForecastData, setHourlyForecastData] = useState<
+		HourlyForecastType[] | null
+	>(null);
+	const [dailyForecastData, setDailyForecastData] = useState<
+		DailyForecastType[] | null
+	>(null);
 
 	const [selectedCoordinates, setSelectedCoordinates] = useState<
 		[number, number] | null
@@ -49,6 +71,14 @@ const WeatherContainer: React.FC = () => {
 				params.lon = selectedCoordinates[1];
 			}
 			if (params.q || (params.lat && params.lon)) {
+				const AirPollutionResponse = await axios.get(
+					"https://api.openweathermap.org/data/2.5/air_pollution",
+					{
+						params: params,
+					}
+				);
+				setAirPollutionData(AirPollutionResponse.data);
+
 				const currentWeatherConditionResponse = await axios.get(
 					"https://api.openweathermap.org/data/2.5/weather",
 					{
@@ -77,6 +107,54 @@ const WeatherContainer: React.FC = () => {
 			fetchWeatherData();
 		}
 	}, [fetchWeatherData, selectedCity]);
+
+	useEffect(() => {
+		if (WeatherForecastData) {
+			let firstDate: string | null = null;
+
+			type DailyDataType = {
+				date: string;
+				items: WeatherForecast_ListType[];
+			};
+
+			const dailyData: Record<string, WeatherForecast_ListType[]> = {};
+			const hourlyData: Record<string, WeatherForecast_ListType[]> = {};
+
+			WeatherForecastData.list.forEach((item) => {
+				// Extract date and time information
+				const date = item.dt_txt.split(" ")[0]; // Extracts the date (e.g., "2023-11-24")
+				const time = item.dt_txt.split(" ")[1]; // Extracts the time (e.g., "18:00:00")
+
+				if (!firstDate) firstDate = date;
+
+				// Organize data by date
+				if (!dailyData[date]) {
+					dailyData[date] = [];
+				}
+				dailyData[date].push(item);
+
+				// Organize data by hour for the first day only
+				if (date === firstDate) {
+					if (!hourlyData[time]) {
+						hourlyData[time] = [];
+					}
+					hourlyData[time].push(item);
+				}
+			});
+
+			// Convert dailyData object to an array
+			const dailyArray: DailyDataType[] = Object.entries(dailyData).map(
+				([date, items]) => ({ date, items })
+			);
+			setDailyForecastData(dailyArray);
+
+			// Convert hourlyData object to an array
+			const hourlyArray = Object.entries(hourlyData).map(
+				([time, items]) => ({ time, items })
+			);
+			setHourlyForecastData(hourlyArray);
+		}
+	}, [WeatherForecastData]);
 
 	return (
 		<div className={weatherContainerClasses}>
@@ -114,90 +192,62 @@ const WeatherContainer: React.FC = () => {
 				)}
 			</div>
 
-			<div className="relative z-10 flex w-full content-start gap-5">
-				{(selectedCity || confirmCoordinates) &&
-				!currentWeatherData &&
-				!WeatherForecastData ? (
-					<div className="flex h-full w-full items-center justify-center gap-1 p-5">
-						<img src={LoadingSVG} alt="weather loading" />
-						Loading
-						<BounceDots />
-					</div>
-				) : (
-					currentWeatherData &&
-					WeatherForecastData && (
-						<>
+			{(selectedCity || confirmCoordinates) &&
+			!currentWeatherData &&
+			!WeatherForecastData ? (
+				<Loading />
+			) : (
+				currentWeatherData &&
+				WeatherForecastData && (
+					<>
+						<div className="relative z-10 flex w-full content-start gap-5">
 							<CurrentConditions {...currentWeatherData} />
-							<MapLoader
-								className="h-414 w-2/3 rounded-md"
-								center={[
-									WeatherForecastData.city.coord.lat,
-									WeatherForecastData.city.coord.lon,
-								]}
-								initialZoom={10}
-								clickedPosition={[
-									WeatherForecastData.city.coord.lat,
-									WeatherForecastData.city.coord.lon,
-								]}
-							>
-								<Popup>
-									<div className="map-popup">
-										<div className="mb-2 flex items-center gap-1 text-sm text-gray-400">
-											<FaMapMarkerAlt />
-											{
-												WeatherForecastData.city.name
-											},{" "}
-											<span className="font-semibold">
-												{
-													WeatherForecastData.city
-														.country
+							<CityMapInfo
+								lat={WeatherForecastData.city.coord.lat}
+								lon={WeatherForecastData.city.coord.lon}
+								name={WeatherForecastData.city.name}
+								country={WeatherForecastData.city.country}
+								population={WeatherForecastData.city.population}
+							/>
+						</div>
+						<div className="relative z-10 flex w-full content-start gap-5">
+							<div className="flex w-1/3 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+								<HourlyForecast
+									hourlyForecastData={hourlyForecastData}
+								/>
+							</div>
+							<div className="flex w-2/3 items-stretch gap-5">
+								{airPollutionData ? (
+									<>
+										<div className="flex w-1/4 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+											<AirPollution
+												airPollutionData={
+													airPollutionData
 												}
-											</span>
+											/>
 										</div>
-										<div className="flex items-center justify-between gap-2">
-											<div className="flex items-center gap-2">
-												<span className="text-xs text-indigo-300">
-													Population:
-												</span>
-												<span className="text-sm text-gray-400">
-													{
-														WeatherForecastData.city
-															.population
-													}
-												</span>
-											</div>
+										<div className="flex w-3/4 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+											<DailyForecast
+												dailyForecastData={
+													dailyForecastData
+												}
+											/>
 										</div>
-										<div className="flex items-center justify-between gap-2">
-											<div className="flex items-center gap-2">
-												<span className="text-xs text-indigo-300">
-													Latitude:
-												</span>
-												<span className="text-sm text-gray-400">
-													{
-														WeatherForecastData.city
-															.coord.lat
-													}
-												</span>
-											</div>
-											<div className="flex items-center gap-2">
-												<span className="text-xs text-indigo-300">
-													Longitude:
-												</span>
-												<span className="text-sm text-gray-400">
-													{
-														WeatherForecastData.city
-															.coord.lon
-													}
-												</span>
-											</div>
-										</div>
+									</>
+								) : (
+									<div className="flex w-full flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 pr-28 dark:bg-slate-700">
+										<DailyForecast
+											dailyForecastData={
+												dailyForecastData
+											}
+										/>
 									</div>
-								</Popup>
-							</MapLoader>
-						</>
-					)
-				)}
-			</div>
+								)}
+							</div>
+						</div>
+					</>
+				)
+			)}
 		</div>
 	);
 };
