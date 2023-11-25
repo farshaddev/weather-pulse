@@ -6,11 +6,7 @@ const DarkLightSwitch: React.FC = () => {
 	const { isDarkMode, toggleDarkMode } = useTheme();
 
 	return (
-		<div
-			className={`flex items-center space-x-2 ${
-				isDarkMode ? "dark" : ""
-			}`}
-		>
+		<div className={`flex items-center space-x-2`}>
 			<button
 				className="rounded-md bg-gray-300 p-2 dark:bg-gray-600"
 				onClick={toggleDarkMode}

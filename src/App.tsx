@@ -9,7 +9,7 @@ function App(): JSX.Element {
 
 	const darkClasses =
 		"dark:bg-slate-800 dark:text-white dark:border-gray-900 dark:shadow-lg";
-	const lightClasses = "bg-white text-black border-gray-300 shadow-lg";
+	const lightClasses = "bg-slate-100 text-black border-gray-300 shadow-lg";
 
 	return (
 		<div className={isDarkMode ? "dark" : ""}>

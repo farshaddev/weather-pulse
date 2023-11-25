@@ -73,10 +73,19 @@ const WeatherContainer: React.FC = () => {
 				params.lon = selectedCoordinates[1];
 			}
 			if (params.q || (params.lat && params.lon)) {
+				let AirPollutionParams = params;
+				if (params.q) {
+					AirPollutionParams = {
+						lat: selectedCity?.coord.lat,
+						lon: selectedCity?.coord.lon,
+						appid: "7828a641250d5ab563aeda84c0d75e38",
+					};
+				}
+
 				const AirPollutionResponse = await axios.get(
 					"https://api.openweathermap.org/data/2.5/air_pollution",
 					{
-						params: params,
+						params: AirPollutionParams,
 					}
 				);
 				setAirPollutionData(AirPollutionResponse.data);
@@ -168,13 +177,13 @@ const WeatherContainer: React.FC = () => {
 				/>
 			)}
 
-			<div className="z-20 flex w-auto flex-col items-stretch gap-3 rounded-md bg-gray-100 p-4 opacity-90 transition-all duration-200 hover:opacity-100 dark:bg-slate-700">
+			<div className="z-20 flex w-auto flex-col items-stretch gap-3 rounded-md border border-gray-200 bg-white p-4 opacity-90 drop-shadow transition-all duration-200 hover:opacity-100 dark:border-slate-700 dark:bg-slate-700">
 				<ToggleMenuBtn />
 				<DarkLightSwitch />
 			</div>
 
-			<div className="relative z-20 flex w-1/3 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 opacity-90 transition-all duration-200 hover:opacity-100 dark:bg-slate-700">
-				<h2 className="mb-2 text-lg font-medium text-gray-300">
+			<div className="relative z-20 flex w-1/3 flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 opacity-90 drop-shadow transition-all duration-200 hover:opacity-100 dark:border-slate-700 dark:bg-slate-700">
+				<h2 className="mb-2 text-lg font-medium text-slate-600 dark:text-gray-300">
 					{selectedCoordinates
 						? "Your Map Coordinates:"
 						: selectedCity
@@ -218,7 +227,7 @@ const WeatherContainer: React.FC = () => {
 							/>
 						</div>
 						<div className="relative z-10 flex w-full content-start gap-5">
-							<div className="flex w-1/3 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+							<div className="flex w-1/3 flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700">
 								<HourlyForecast
 									hourlyForecastData={hourlyForecastData}
 								/>
@@ -226,14 +235,14 @@ const WeatherContainer: React.FC = () => {
 							<div className="flex w-2/3 items-stretch gap-5">
 								{airPollutionData ? (
 									<>
-										<div className="flex w-1/4 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+										<div className="flex w-1/4 flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700">
 											<AirPollution
 												airPollutionData={
 													airPollutionData
 												}
 											/>
 										</div>
-										<div className="flex w-3/4 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+										<div className="flex w-3/4 flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700">
 											<DailyForecast
 												dailyForecastData={
 													dailyForecastData
@@ -242,7 +251,7 @@ const WeatherContainer: React.FC = () => {
 										</div>
 									</>
 								) : (
-									<div className="flex w-full flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 pr-28 dark:bg-slate-700">
+									<div className="flex w-full flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 pr-28 dark:border-slate-700 dark:bg-slate-700">
 										<DailyForecast
 											dailyForecastData={
 												dailyForecastData
