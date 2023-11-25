@@ -20,6 +20,7 @@ import AirPollution from "../AirPollution/AirPollution";
 import { AirPollutionType } from "../../types/airPollution";
 import Loading from "../Loading/Loading";
 import ToggleMenuBtn from "../ToggleMenuBtn/ToggleMenuBtn";
+import DarkLightSwitch from "../DarkLightSwitch/DarkLightSwitch";
 
 interface HourlyForecastType {
 	time: string;
@@ -167,8 +168,9 @@ const WeatherContainer: React.FC = () => {
 				/>
 			)}
 
-			<div className="z-20 flex w-auto flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 opacity-90 transition-all duration-200 hover:opacity-100 dark:bg-slate-700">
+			<div className="z-20 flex w-auto flex-col items-stretch gap-3 rounded-md bg-gray-100 p-4 opacity-90 transition-all duration-200 hover:opacity-100 dark:bg-slate-700">
 				<ToggleMenuBtn />
+				<DarkLightSwitch />
 			</div>
 
 			<div className="relative z-20 flex w-1/3 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 opacity-90 transition-all duration-200 hover:opacity-100 dark:bg-slate-700">

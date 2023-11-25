@@ -1,6 +1,5 @@
 import React from "react";
 import { useMenu } from "../../contexts/MenuContext";
-import "./ToggleMenuBtn.css";
 
 const ToggleMenuBtn: React.FC = () => {
 	const { isMenuOpen, toggleMenu } = useMenu();
