@@ -12,8 +12,17 @@ import MapCoordinates from "../MapCoordinates/MapCoordinates";
 import LoadingSVG from "../../svg/loading.svg";
 import BounceDots from "../BounceDots/BounceDots";
 import { FetchWeatherParamsType } from "../../types/fetchWeatherParams";
-import { WeatherForecastType } from "../../types/weatherForcast";
+import {
+	WeatherForecastType,
+	WeatherForecast_ListType,
+} from "../../types/weatherForcast";
 import CityMapInfo from "../CityMapInfo/CityMapInfo";
+import DailyForecast from "../HourlyForecast/HourlyForecast";
+
+interface hourlyForecastType {
+	time: string;
+	items: WeatherForecast_ListType[];
+}
 
 const WeatherContainer: React.FC = () => {
 	const { isMenuOpen } = useMenu();
@@ -24,6 +33,9 @@ const WeatherContainer: React.FC = () => {
 		useState<CurrentConditionType | null>(null);
 	const [WeatherForecastData, setWeatherForecastData] =
 		useState<WeatherForecastType | null>(null);
+	const [hourlyForecastData, setHourlyForecastData] = useState<
+		hourlyForecastType[] | null
+	>(null);
 
 	const [selectedCoordinates, setSelectedCoordinates] = useState<
 		[number, number] | null
@@ -77,6 +89,60 @@ const WeatherContainer: React.FC = () => {
 		}
 	}, [fetchWeatherData, selectedCity]);
 
+	useEffect(() => {
+		if (WeatherForecastData) {
+			let firstDate: string | null = null;
+
+			type DailyDataType = {
+				date: string;
+				items: WeatherForecast_ListType[];
+			};
+
+			const dailyData: Record<string, WeatherForecast_ListType[]> = {};
+			const hourlyData: Record<string, WeatherForecast_ListType[]> = {};
+
+			WeatherForecastData.list.forEach((item) => {
+				// Extract date and time information
+				const date = item.dt_txt.split(" ")[0]; // Extracts the date (e.g., "2023-11-24")
+				const time = item.dt_txt.split(" ")[1]; // Extracts the time (e.g., "18:00:00")
+
+				if (!firstDate) firstDate = date;
+
+				// Organize data by date
+				if (!dailyData[date]) {
+					dailyData[date] = [];
+				}
+				dailyData[date].push(item);
+
+				// Organize data by hour for the first day only
+				if (date === firstDate) {
+					if (!hourlyData[time]) {
+						hourlyData[time] = [];
+					}
+					hourlyData[time].push(item);
+				}
+			});
+
+			// Convert dailyData object to an array
+			const dailyArray: DailyDataType[] = Object.entries(dailyData).map(
+				([date, items]) => ({ date, items })
+			);
+
+			// Convert hourlyData object to an array
+			const hourlyArray = Object.entries(hourlyData).map(
+				([time, items]) => ({ time, items })
+			);
+			setHourlyForecastData(hourlyArray);
+
+			// Print the results
+			console.log("Daily Data:");
+			console.log(dailyArray);
+
+			console.log("\nHourly Data (First Day Only):");
+			console.log(hourlyArray);
+		}
+	}, [WeatherForecastData]);
+
 	return (
 		<div className={weatherContainerClasses}>
 			{!confirmCoordinates && !selectedCity && (
@@ -113,19 +179,19 @@ const WeatherContainer: React.FC = () => {
 				)}
 			</div>
 
-			<div className="relative z-10 flex w-full content-start gap-5">
-				{(selectedCity || confirmCoordinates) &&
-				!currentWeatherData &&
-				!WeatherForecastData ? (
-					<div className="flex h-full w-full items-center justify-center gap-1 p-5">
-						<img src={LoadingSVG} alt="weather loading" />
-						Loading
-						<BounceDots />
-					</div>
-				) : (
-					currentWeatherData &&
-					WeatherForecastData && (
-						<>
+			{(selectedCity || confirmCoordinates) &&
+			!currentWeatherData &&
+			!WeatherForecastData ? (
+				<div className="flex w-full items-center justify-center gap-1 p-5">
+					<img src={LoadingSVG} alt="weather loading" />
+					Loading
+					<BounceDots />
+				</div>
+			) : (
+				currentWeatherData &&
+				WeatherForecastData && (
+					<>
+						<div className="relative z-10 flex w-full content-start gap-5">
 							<CurrentConditions {...currentWeatherData} />
 							<CityMapInfo
 								lat={WeatherForecastData.city.coord.lat}
@@ -134,10 +200,17 @@ const WeatherContainer: React.FC = () => {
 								country={WeatherForecastData.city.country}
 								population={WeatherForecastData.city.population}
 							/>
-						</>
-					)
-				)}
-			</div>
+						</div>
+						<div className="relative z-10 flex w-full content-start gap-5">
+							<div className="flex w-1/3 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+								<DailyForecast
+									hourlyForecastData={hourlyForecastData}
+								/>
+							</div>
+						</div>
+					</>
+				)
+			)}
 		</div>
 	);
 };
