@@ -1,47 +1,45 @@
 import { WeatherForecast_ListType } from "../../types/weatherForcast";
 import { convertTo12HourFormat } from "../../utils";
 
-interface HourlyForecastProps {
-	hourlyForecastData: hourlyForecastType[] | null;
+interface DailyForecastProps {
+	dailyForecastData: DailyForecastType[] | null;
 }
 
-interface hourlyForecastType {
-	time: string;
+interface DailyForecastType {
+	date: string;
 	items: WeatherForecast_ListType[];
 }
 
-const HourlyForecast: React.FC<HourlyForecastProps> = ({
-	hourlyForecastData,
-}) => {
+const DailyForecast: React.FC<DailyForecastProps> = ({ dailyForecastData }) => {
 	return (
 		<>
 			<h3 className="mb-2 text-lg font-medium text-gray-300">
-				Today Hourly Forecast
+				Daily Forecast
 			</h3>
 			<div className="flex gap-2">
-				{hourlyForecastData?.slice(0, 4).map((hourlyForecast) => (
+				{dailyForecastData?.slice(0, 6).map((dailyForecast) => (
 					<div
-						key={hourlyForecast.time}
+						key={dailyForecast.date}
 						className="flex w-1/4 flex-col gap-0 rounded-md bg-slate-600 p-2 text-center first:bg-indigo-500"
 					>
 						<h3 className="text-xs font-medium text-gray-200">
-							{convertTo12HourFormat(hourlyForecast.time)}
+							{dailyForecast.date}
 						</h3>
 						<div className="flex flex-col items-center gap-2">
 							<img
-								src={`http://openweathermap.org/img/wn/${hourlyForecast.items[0].weather[0].icon}@2x.png`}
+								src={`http://openweathermap.org/img/wn/${dailyForecast.items[0].weather[0].icon}@2x.png`}
 								alt={
-									hourlyForecast.items[0].weather[0]
+									dailyForecast.items[0].weather[0]
 										.description
 								}
 								width={50}
 								height={50}
 							/>
 							<p className="text-xs text-gray-200">
-								{hourlyForecast.items[0].weather[0].description}
+								{dailyForecast.items[0].weather[0].description}
 							</p>
 							<p className="text-sm font-medium text-indigo-200">
-								{hourlyForecast.items[0].main.temp}°C
+								{dailyForecast.items[0].main.temp}°C
 							</p>
 						</div>
 					</div>
@@ -51,4 +49,4 @@ const HourlyForecast: React.FC<HourlyForecastProps> = ({
 	);
 };
 
-export default HourlyForecast;
+export default DailyForecast;
