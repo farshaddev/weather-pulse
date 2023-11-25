@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { RiSunLine, RiMoonLine } from "react-icons/ri";
+import { useTheme } from "../../hooks/ThemeContext";
 
 const DarkLightSwitch: React.FC = () => {
-	const [isDarkMode, setDarkMode] = useState<boolean>(true);
-
-	const toggleDarkMode = () => {
-		setDarkMode((prevMode) => !prevMode);
-	};
+	const { isDarkMode, toggleDarkMode } = useTheme();
 
 	return (
 		<div
