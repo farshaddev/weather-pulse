@@ -19,6 +19,8 @@ import {
 import CityMapInfo from "../CityMapInfo/CityMapInfo";
 import DailyForecast from "../DailyForecast/DailyForecast";
 import HourlyForecast from "../HourlyForecast/HourlyForecast";
+import AirPollution from "../AirPollution/AirPollution";
+import { AirPollutionType } from "../../types/airPollution";
 
 interface HourlyForecastType {
 	time: string;
@@ -38,6 +40,9 @@ const WeatherContainer: React.FC = () => {
 		useState<CurrentConditionType | null>(null);
 	const [WeatherForecastData, setWeatherForecastData] =
 		useState<WeatherForecastType | null>(null);
+	const [airPollutionData, setAirPollutionData] =
+		useState<AirPollutionType | null>(null);
+
 	const [hourlyForecastData, setHourlyForecastData] = useState<
 		HourlyForecastType[] | null
 	>(null);
@@ -68,6 +73,14 @@ const WeatherContainer: React.FC = () => {
 				params.lon = selectedCoordinates[1];
 			}
 			if (params.q || (params.lat && params.lon)) {
+				const AirPollutionResponse = await axios.get(
+					"https://api.openweathermap.org/data/2.5/air_pollution",
+					{
+						params: params,
+					}
+				);
+				setAirPollutionData(AirPollutionResponse.data);
+
 				const currentWeatherConditionResponse = await axios.get(
 					"https://api.openweathermap.org/data/2.5/weather",
 					{
@@ -214,12 +227,32 @@ const WeatherContainer: React.FC = () => {
 								/>
 							</div>
 							<div className="flex w-2/3 items-stretch gap-5">
-								<div className="flex w-1/4 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700"></div>
-								<div className="flex w-3/4 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
-									<DailyForecast
-										dailyForecastData={dailyForecastData}
-									/>
-								</div>
+								{airPollutionData ? (
+									<>
+										<div className="flex w-1/4 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+											<AirPollution
+												airPollutionData={
+													airPollutionData
+												}
+											/>
+										</div>
+										<div className="flex w-3/4 flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 dark:bg-slate-700">
+											<DailyForecast
+												dailyForecastData={
+													dailyForecastData
+												}
+											/>
+										</div>
+									</>
+								) : (
+									<div className="flex w-full flex-col items-stretch gap-2 rounded-md bg-gray-100 p-4 pr-28 dark:bg-slate-700">
+										<DailyForecast
+											dailyForecastData={
+												dailyForecastData
+											}
+										/>
+									</div>
+								)}
 							</div>
 						</div>
 					</>
