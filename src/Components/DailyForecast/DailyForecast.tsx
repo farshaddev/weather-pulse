@@ -19,7 +19,7 @@ const DailyForecast: React.FC<DailyForecastProps> = ({ dailyForecastData }) => {
 				{dailyForecastData?.slice(0, 6).map((dailyForecast) => (
 					<div
 						key={dailyForecast.date}
-						className="flex w-1/4 flex-col gap-2 rounded-md bg-slate-600 p-2 py-6 text-center first:bg-indigo-500"
+						className="flex w-1/4 flex-col gap-2 rounded-md bg-slate-600 p-2 py-7 text-center first:bg-indigo-500"
 					>
 						<h3 className="text-xs font-medium text-gray-200">
 							{dailyForecast.date}

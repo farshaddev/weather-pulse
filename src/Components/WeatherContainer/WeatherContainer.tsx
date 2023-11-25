@@ -155,10 +155,6 @@ const WeatherContainer: React.FC = () => {
 				([time, items]) => ({ time, items })
 			);
 			setHourlyForecastData(hourlyArray);
-
-			// Print the results
-			console.log("Daily Data:");
-			console.log(dailyArray);
 		}
 	}, [WeatherForecastData]);
 
