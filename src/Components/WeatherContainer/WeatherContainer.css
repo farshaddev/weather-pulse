@@ -3,7 +3,7 @@
 }
 
 .leaflet-container {
-    background: transparent !important;
+    background: rgb(51, 65, 85) !important;
 }
 .leaflet-pane.leaflet-tile-pane {
     opacity: 0.7;
