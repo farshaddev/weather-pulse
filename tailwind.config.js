@@ -15,6 +15,9 @@ module.exports = {
 			lineHeight: {
 				"extra-loose": "3.5",
 			},
+			minHeight: {
+				"1/2": "50%",
+			},
 			width: {
 				345: "345px",
 				285: "285px",

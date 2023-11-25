@@ -8,9 +8,6 @@ import axios from "axios";
 import { CurrentConditionType } from "../../types/currentCondition";
 import MapLoader from "../MapLoader/MapLoader";
 import MapCoordinates from "../MapCoordinates/MapCoordinates";
-// @ts-ignore
-import LoadingSVG from "../../svg/loading.svg";
-import BounceDots from "../BounceDots/BounceDots";
 import { FetchWeatherParamsType } from "../../types/fetchWeatherParams";
 import {
 	WeatherForecastType,
@@ -21,6 +18,7 @@ import DailyForecast from "../DailyForecast/DailyForecast";
 import HourlyForecast from "../HourlyForecast/HourlyForecast";
 import AirPollution from "../AirPollution/AirPollution";
 import { AirPollutionType } from "../../types/airPollution";
+import Loading from "../Loading/Loading";
 
 interface HourlyForecastType {
 	time: string;
@@ -197,11 +195,7 @@ const WeatherContainer: React.FC = () => {
 			{(selectedCity || confirmCoordinates) &&
 			!currentWeatherData &&
 			!WeatherForecastData ? (
-				<div className="flex w-full items-center justify-center gap-1 p-5">
-					<img src={LoadingSVG} alt="weather loading" />
-					Loading
-					<BounceDots />
-				</div>
+				<Loading />
 			) : (
 				currentWeatherData &&
 				WeatherForecastData && (
