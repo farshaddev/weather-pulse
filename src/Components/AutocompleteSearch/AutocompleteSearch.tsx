@@ -67,11 +67,11 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 	return (
 		<div className="relative flex items-center gap-2">
 			{loading && (
-				<AiOutlineLoading3Quarters className="absolute right-1.5 top-2 animate-spin text-sm text-slate-400" />
+				<AiOutlineLoading3Quarters className="absolute right-1.5 top-2 z-20 animate-spin text-sm text-slate-600 dark:text-slate-400" />
 			)}
 			<input
 				type="text"
-				className="peer h-8 flex-1 rounded-md bg-gray-200 p-1 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:bg-slate-600 dark:focus:border-slate-900 dark:focus:ring-slate-900"
+				className="peer h-8 flex-1 rounded-md bg-slate-200 p-1 drop-shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:bg-slate-600 dark:focus:border-slate-900 dark:focus:ring-slate-900"
 				value={searchTerm}
 				onFocus={handleReset}
 				onChange={handleInputChange}
@@ -88,11 +88,11 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 			)}
 			{searchTerm === "" ? (
 				<>
-					<div className="pointer-events-none absolute left-1.5 top-1.5 flex gap-1 text-sm text-slate-400">
+					<div className="pointer-events-none absolute left-1.5 top-1.5 flex gap-1 text-sm text-slate-600 dark:text-slate-400">
 						Lon
 						<BounceDots />
 					</div>
-					<span className="flex-none text-xs text-slate-400">
+					<span className="flex-none text-xs text-slate-600 dark:text-slate-400">
 						Type 3 Charecter at least.
 					</span>
 				</>
@@ -100,7 +100,7 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 			  searchTerm.length > 2 &&
 			  suggestedCities.length < 1 &&
 			  !selectedCity ? (
-				<span className="flex-none text-xs text-slate-400">
+				<span className="flex-none text-xs text-slate-600 dark:text-slate-400">
 					Not Found! Try "London" instead.
 				</span>
 			) : (

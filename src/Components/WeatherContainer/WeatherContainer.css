@@ -2,15 +2,15 @@
     width: calc(100% - 345px);
 }
 
-.leaflet-container {
+.dark .leaflet-container {
     background: rgb(51, 65, 85) !important;
 }
-.leaflet-pane.leaflet-tile-pane {
+.dark .leaflet-pane.leaflet-tile-pane {
     opacity: 0.7;
 }
 
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
+.dark .leaflet-popup-content-wrapper,
+.dark .leaflet-popup-tip {
     background: rgb(51, 65, 85) !important;
     color: rgb(229, 231, 235) !important;
 }
