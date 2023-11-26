@@ -1,5 +1,4 @@
-// @ts-ignore
-import LoadingSVG from "../../svg/loading.svg";
+import LoadingSVG from "../../Assets/svg/loading.svg";
 import BounceDots from "../BounceDots/BounceDots";
 
 const Loading: React.FC = () => (

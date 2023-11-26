@@ -1,5 +1,5 @@
 import React from "react";
-import { useMenu } from "../../contexts/MenuContext";
+import { useMenu } from "../../Contexts/MenuContext";
 
 const ToggleMenuBtn: React.FC = () => {
 	const { isMenuOpen, toggleMenu } = useMenu();

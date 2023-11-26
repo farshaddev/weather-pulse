@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
-import citiesData from "../../json/cities.json";
-import { CityType } from "../../types/cities";
+import citiesData from "../../Assets/json/cities.json";
+import { CityType } from "../../Types/cities";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import BounceDots from "../BounceDots/BounceDots";
 import { IoIosRefresh } from "react-icons/io";

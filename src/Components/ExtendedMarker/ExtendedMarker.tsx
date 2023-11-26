@@ -1,15 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import { Marker, MarkerProps } from "react-leaflet";
+import * as L from "leaflet";
 
 interface ExtendedMarkerProps extends MarkerProps {
-	openPopup?: () => void;
+	openPopup?: boolean;
 }
 
-const ExtendedMarker = (props: ExtendedMarkerProps) => {
-	const markerRef = useRef<ExtendedMarkerProps>(null);
+const ExtendedMarker: React.FC<ExtendedMarkerProps> = (props) => {
+	const markerRef = useRef<L.Marker>(null);
 
 	useEffect(() => {
-		if (markerRef.current && markerRef.current.openPopup) {
+		if (markerRef.current) {
 			markerRef.current.openPopup();
 		}
 	}, []);

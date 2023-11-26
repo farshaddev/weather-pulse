@@ -1,7 +1,7 @@
 import {
 	AirPollution_coordType,
 	AirPollution_listType,
-} from "../../types/airPollution";
+} from "../../Types/airPollution";
 
 interface AirPollutionProps {
 	airPollutionData: AirPollutionType;
