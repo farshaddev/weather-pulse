@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Marker, MarkerProps, Popup } from "react-leaflet";
+import { Marker, MarkerProps } from "react-leaflet";
 import * as L from "leaflet";
 
 interface ExtendedMarkerProps extends MarkerProps {
