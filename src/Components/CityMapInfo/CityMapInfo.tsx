@@ -19,7 +19,7 @@ const CityMapInfo: React.FC<CityMapInfoProps> = ({
 }) => {
 	return (
 		<MapLoader
-			className="h-414 w-2/3 rounded-md border border-gray-200 shadow-sm dark:border-slate-700 dark:bg-slate-700"
+			className="h-60 w-full rounded-md border border-gray-200 shadow-sm dark:border-slate-700 dark:bg-slate-700 sm:order-last sm:h-[368px] sm:w-1/2 md:h-[355px] lg:h-414 2xl:w-2/3"
 			center={[lat, lon]}
 			initialZoom={10}
 			clickedPosition={[lat, lon]}

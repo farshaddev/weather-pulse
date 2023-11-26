@@ -22,7 +22,7 @@
     }
 }
 
-@media (max-width: 410px) {
+@media (max-width: 639px) {
     .menu-open {
         transform: translateX(285px);
     }

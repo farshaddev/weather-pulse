@@ -1,4 +1,5 @@
 import React from "react";
+import { IoIosRefresh } from "react-icons/io";
 
 type MapCoordinatesType = [number, number];
 
@@ -27,10 +28,10 @@ const MapCoordinates: React.FC<MapCoordinatesProps> = ({
 
 	return (
 		<div className="flex flex-col gap-2">
-			<div className="flex items-center justify-between gap-2">
+			<div className="flex flex-col items-center justify-between gap-2 sm:flex-row">
 				<div className="flex items-center gap-2">
 					<span className="text-base text-indigo-300">Latitude:</span>
-					<span className="text-sm text-gray-400">
+					<span className="text-xs text-gray-400 2xl:text-sm">
 						{clickedPosition[0]}
 					</span>
 				</div>
@@ -38,18 +39,21 @@ const MapCoordinates: React.FC<MapCoordinatesProps> = ({
 					<span className="text-base text-indigo-300">
 						Longitude:
 					</span>
-					<span className="text-sm text-gray-400">
+					<span className="text-xs text-gray-400 2xl:text-sm">
 						{clickedPosition[1]}
 					</span>
 				</div>
 			</div>
-			<div className="mt-4 flex items-center justify-end gap-4 text-sm">
+			<div className="flex items-center justify-center gap-4 text-sm md:mt-4 md:justify-end">
 				<button
-					className="rounded-md bg-slate-300 p-2 text-slate-700 transition-all duration-200 hover:bg-slate-200"
+					className="rounded-md bg-slate-300 p-2 text-xs text-slate-700 transition-all duration-200 hover:bg-slate-200 sm:static"
 					type="button"
-					onClick={handleReset}
+					onClick={() => handleReset()}
 				>
-					Search Again
+					<span className="hidden sm:block">Search Again</span>
+					<span className="block sm:hidden">
+						<IoIosRefresh />
+					</span>
 				</button>
 				{!confirmCoordinates && (
 					<button
