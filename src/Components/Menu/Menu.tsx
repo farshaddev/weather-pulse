@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../Logo/Logo";
 import { menuItems } from "./MenuItems";
-import { useMenu } from "../../contexts/MenuContext";
+import { useMenu } from "../../Contexts/MenuContext";
 import MenuListItem from "./MenuListItem";
 
 const Menu: React.FC = () => {

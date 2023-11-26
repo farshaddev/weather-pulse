@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@react-leaflet/core": "^2.1.0",
 		"axios": "^1.6.1",
 		"leaflet": "^1.9.4",
 		"react": "^18.2.0",

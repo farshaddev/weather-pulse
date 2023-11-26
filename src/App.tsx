@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Menu from "./Components/Menu/Menu";
 import WeatherContainer from "./Components/WeatherContainer/WeatherContainer";
-import { useTheme } from "./hooks/ThemeContext";
+import { useTheme } from "./Hooks/ThemeContext";
 
 function App(): JSX.Element {
 	const { isDarkMode } = useTheme();

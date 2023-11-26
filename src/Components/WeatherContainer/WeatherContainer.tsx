@@ -1,23 +1,23 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./WeatherContainer.css";
 import AutocompleteSearch from "../AutocompleteSearch/AutocompleteSearch";
-import { useMenu } from "../../contexts/MenuContext";
-import { CityType } from "../../types/cities";
+import { useMenu } from "../../Contexts/MenuContext";
+import { CityType } from "../../Types/cities";
 import CurrentConditions from "../CurrentConditions/CurrentConditions";
 import axios from "axios";
-import { CurrentConditionType } from "../../types/currentCondition";
+import { CurrentConditionType } from "../../Types/currentCondition";
 import MapLoader from "../MapLoader/MapLoader";
 import MapCoordinates from "../MapCoordinates/MapCoordinates";
-import { FetchWeatherParamsType } from "../../types/fetchWeatherParams";
+import { FetchWeatherParamsType } from "../../Types/fetchWeatherParams";
 import {
 	WeatherForecastType,
 	WeatherForecast_ListType,
-} from "../../types/weatherForcast";
+} from "../../Types/weatherForcast";
 import CityMapInfo from "../CityMapInfo/CityMapInfo";
 import DailyForecast from "../DailyForecast/DailyForecast";
 import HourlyForecast from "../HourlyForecast/HourlyForecast";
 import AirPollution from "../AirPollution/AirPollution";
-import { AirPollutionType } from "../../types/airPollution";
+import { AirPollutionType } from "../../Types/airPollution";
 import Loading from "../Loading/Loading";
 import ToggleMenuBtn from "../ToggleMenuBtn/ToggleMenuBtn";
 import DarkLightSwitch from "../DarkLightSwitch/DarkLightSwitch";

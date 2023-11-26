@@ -1,4 +1,4 @@
-import { WeatherForecast_ListType } from "../../types/weatherForcast";
+import { WeatherForecast_ListType } from "../../Types/weatherForcast";
 
 interface DailyForecastProps {
 	dailyForecastData: DailyForecastType[] | null;

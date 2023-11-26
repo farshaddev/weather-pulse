@@ -1,5 +1,5 @@
-import { WeatherForecast_ListType } from "../../types/weatherForcast";
-import { convertTo12HourFormat } from "../../utils";
+import { WeatherForecast_ListType } from "../../Types/weatherForcast";
+import { convertTo12HourFormat } from "../../Utils";
 
 interface HourlyForecastProps {
 	hourlyForecastData: hourlyForecastType[] | null;

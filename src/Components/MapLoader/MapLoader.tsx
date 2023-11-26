@@ -1,7 +1,6 @@
 import React from "react";
 import {
 	MapContainer,
-	Marker,
 	TileLayer,
 	ZoomControl,
 	useMapEvents,

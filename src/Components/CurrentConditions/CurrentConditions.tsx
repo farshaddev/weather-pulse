@@ -3,8 +3,8 @@ import {
 	CurrentCondition_MainType,
 	CurrentCondition_WeatherType,
 	CurrentCondition_WindType,
-} from "../../types/currentCondition";
-import { convertTimestampToDate } from "../../utils";
+} from "../../Types/currentCondition";
+import { convertTimestampToDate } from "../../Utils";
 
 interface CurrentConditionsProps {
 	weather: CurrentCondition_WeatherType[];
