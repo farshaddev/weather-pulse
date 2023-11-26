@@ -1,4 +1,3 @@
-// @ts-ignore
 import LoadingSVG from "../../Assets/svg/loading.svg";
 import BounceDots from "../BounceDots/BounceDots";
 

@@ -1,4 +1,5 @@
 import React from "react";
+import * as ReactDOMServer from "react-dom/server";
 import {
 	MapContainer,
 	TileLayer,
@@ -9,9 +10,11 @@ import type { MapContainerProps, TileLayerProps } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapLoader.css";
 import ExtendedMarker from "../ExtendedMarker/ExtendedMarker";
+import L from "leaflet";
+import markerIcon from "../../Assets/images/marker-icon.png";
 
 interface ExtendedMapContainerProps extends MapContainerProps {
-	center: number[];
+	center: [number, number];
 	zoom: number;
 	minZoom?: number;
 	zoomControl?: boolean;
@@ -41,7 +44,7 @@ const MapLoader: React.FC<MapLoaderProps> = ({
 	className,
 	children,
 }) => {
-	const initialCenter = center ? center : [19.15, -23.55];
+	const initialCenter: [number, number] = center ? center : [19.15, -23.55];
 
 	const mapProps: ExtendedMapContainerProps = {
 		center: initialCenter,
@@ -50,6 +53,22 @@ const MapLoader: React.FC<MapLoaderProps> = ({
 		zoomControl: false,
 		doubleClickZoom: false,
 	};
+
+	const customIcon = L.divIcon({
+		className: "w-10 h-10",
+		iconSize: [40, 40],
+		iconAnchor: [20, 40],
+		popupAnchor: [0, -30],
+		html: ReactDOMServer.renderToString(
+			<img
+				src={markerIcon}
+				alt="marker"
+				width={40}
+				height={40}
+				className="h-10 w-10"
+			/>
+		),
+	});
 
 	const tileLayerProps: ExtendedTileLayerProps = {
 		url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -73,7 +92,7 @@ const MapLoader: React.FC<MapLoaderProps> = ({
 		<MapContainer className={className} {...mapProps}>
 			<TileLayer {...tileLayerProps} />
 			{clickedPosition && (
-				<ExtendedMarker position={clickedPosition}>
+				<ExtendedMarker position={clickedPosition} icon={customIcon}>
 					{children && children}
 				</ExtendedMarker>
 			)}
