@@ -56,7 +56,7 @@ const WeatherContainer: React.FC = () => {
 
 	const openMenuClasses = "menu-open";
 	const closeMenuClasses = "w-full";
-	const weatherContainerClasses = `relative p-5 flex h-screen overflow-y-auto content-start gap-5 flex-wrap transition-all duration-300 ease-in ${
+	const weatherContainerClasses = `relative p-2 sm:p-5 items-stretch flex h-screen overflow-y-auto content-start gap-5 flex-wrap transition-all duration-300 ease-in ${
 		isMenuOpen ? openMenuClasses : closeMenuClasses
 	}`;
 
@@ -177,13 +177,13 @@ const WeatherContainer: React.FC = () => {
 				/>
 			)}
 
-			<div className="z-20 flex w-auto flex-col items-stretch gap-3 rounded-md border border-gray-200 bg-white p-4 opacity-90 drop-shadow transition-all duration-200 hover:opacity-100 dark:border-slate-700 dark:bg-slate-700">
+			<div className="z-20 flex w-auto flex-col items-stretch gap-3 rounded-md border border-gray-200 bg-white p-2 opacity-90 drop-shadow transition-all duration-200 hover:opacity-100 dark:border-slate-700 dark:bg-slate-700 sm:p-4">
 				<ToggleMenuBtn />
 				<DarkLightSwitch />
 			</div>
 
-			<div className="relative z-20 flex w-1/3 flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 opacity-90 drop-shadow transition-all duration-200 hover:opacity-100 dark:border-slate-700 dark:bg-slate-700">
-				<h2 className="mb-2 text-lg font-medium text-slate-600 dark:text-gray-300">
+			<div className="relative z-20 flex flex-1 flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 text-center opacity-90 drop-shadow transition-all duration-200 hover:opacity-100 dark:border-slate-700 dark:bg-slate-700 md:w-1/3 md:min-w-[450px] md:flex-none md:text-left">
+				<h2 className="text-sm font-medium text-slate-600 dark:text-gray-300 sm:text-lg md:mb-2">
 					{selectedCoordinates
 						? "Your Map Coordinates:"
 						: selectedCity
@@ -216,8 +216,7 @@ const WeatherContainer: React.FC = () => {
 				currentWeatherData &&
 				WeatherForecastData && (
 					<>
-						<div className="relative z-10 flex w-full content-start gap-5">
-							<CurrentConditions {...currentWeatherData} />
+						<div className="relative z-10 flex w-full flex-col content-start gap-5 sm:flex-row">
 							<CityMapInfo
 								lat={WeatherForecastData.city.coord.lat}
 								lon={WeatherForecastData.city.coord.lon}
@@ -225,24 +224,27 @@ const WeatherContainer: React.FC = () => {
 								country={WeatherForecastData.city.country}
 								population={WeatherForecastData.city.population}
 							/>
+							<div className="flex w-full flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700 sm:w-1/2 lg:p-10 2xl:w-1/3">
+								<CurrentConditions {...currentWeatherData} />
+							</div>
 						</div>
-						<div className="relative z-10 flex w-full content-start gap-5">
-							<div className="flex w-1/3 flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700">
+						<div className="relative z-10 flex w-full flex-col content-start gap-5 md:flex-row">
+							<div className="flex w-full flex-col items-center gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700 md:w-1/3 md:items-stretch">
 								<HourlyForecast
 									hourlyForecastData={hourlyForecastData}
 								/>
 							</div>
-							<div className="flex w-2/3 items-stretch gap-5">
+							<div className="flex w-full flex-col items-stretch gap-5 md:w-2/3 md:flex-row">
 								{airPollutionData ? (
 									<>
-										<div className="flex w-1/4 flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700">
+										<div className="flex w-full flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700 md:w-1/2 2xl:w-2/4">
 											<AirPollution
 												airPollutionData={
 													airPollutionData
 												}
 											/>
 										</div>
-										<div className="flex w-3/4 flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700">
+										<div className="flex w-full flex-col items-center gap-2 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-700 md:w-1/2 md:items-stretch 2xl:w-3/4">
 											<DailyForecast
 												dailyForecastData={
 													dailyForecastData
@@ -251,7 +253,7 @@ const WeatherContainer: React.FC = () => {
 										</div>
 									</>
 								) : (
-									<div className="flex w-full flex-col items-stretch gap-2 rounded-md border border-gray-200 bg-white p-4 pr-28 dark:border-slate-700 dark:bg-slate-700">
+									<div className="flex w-full flex-col items-center gap-2 rounded-md border border-gray-200 bg-white p-4 pr-28 dark:border-slate-700 dark:bg-slate-700 md:items-stretch">
 										<DailyForecast
 											dailyForecastData={
 												dailyForecastData

@@ -3,6 +3,7 @@ import citiesData from "../../json/cities.json";
 import { CityType } from "../../types/cities";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import BounceDots from "../BounceDots/BounceDots";
+import { IoIosRefresh } from "react-icons/io";
 
 interface AutocompleteSearchProps {
 	selectedCity: (CityType | null) | undefined;
@@ -65,13 +66,13 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 	};
 
 	return (
-		<div className="relative flex items-center gap-2">
+		<div className="relative flex flex-col items-center gap-2 sm:flex-row">
 			{loading && (
 				<AiOutlineLoading3Quarters className="absolute right-1.5 top-2 z-20 animate-spin text-sm text-slate-600 dark:text-slate-400" />
 			)}
 			<input
 				type="text"
-				className="peer h-8 flex-1 rounded-md bg-slate-200 p-1 drop-shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:bg-slate-600 dark:focus:border-slate-900 dark:focus:ring-slate-900"
+				className="peer h-8 w-full flex-1 rounded-md bg-slate-200 p-1 drop-shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:bg-slate-600 dark:focus:border-slate-900 dark:focus:ring-slate-900"
 				value={searchTerm}
 				onFocus={handleReset}
 				onChange={handleInputChange}
@@ -79,11 +80,14 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 			/>
 			{selectedCity && (
 				<button
-					className="rounded-md bg-slate-300 p-2 text-xs text-slate-700 transition-all duration-200 hover:bg-slate-200"
+					className="absolute right-0 top-0 rounded-md bg-slate-300 p-2 text-xs text-slate-700 transition-all duration-200 hover:bg-slate-200 sm:static"
 					type="button"
 					onClick={() => handleReset()}
 				>
-					Search Again
+					<span className="hidden sm:block">Search Again</span>
+					<span className="block sm:hidden">
+						<IoIosRefresh />
+					</span>
 				</button>
 			)}
 			{searchTerm === "" ? (
