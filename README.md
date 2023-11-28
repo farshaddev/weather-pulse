@@ -54,8 +54,6 @@ For running tests in headless mode:
 ```bash
 npm run headlesstest
 ```
-npm run eject
-```
 
 ## Some Of Technologies Used
 
