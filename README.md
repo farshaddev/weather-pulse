@@ -1,35 +1,93 @@
-# WeatherPulse
+# Weather Pulse
 
-Welcome to WeatherPulse, a dynamic weather application built with React, powered by the OpenWeatherMap API, and enriched with insightful visualizations using Chart.js.
+Weather Pulse is a React portfolio project that offers real-time weather information, featuring a Leaflet map, autocomplete, and various weather details. The application is fully responsive, with a toggle menu, theme switcher, and PWA support. Developed in TypeScript and tested with Cypress for end-to-end functionality.
 
-# Features:
+## Developer Note
 
-Current Weather Conditions: Instantly get the latest weather updates for any location, providing real-time information at your fingertips.
+The developer's Node.js version for this project is v18.15.0.
 
-Hourly and Daily Forecasts: Plan your day with precision by accessing detailed hourly and daily forecasts, ensuring you're prepared for any weather changes.
+## Features
 
-Location Search: Seamlessly search for weather information in any location worldwide. From bustling cities to remote destinations, WeatherPulse has you covered.
+-   **Leaflet Map and Autocomplete:** Choose locations via city or map coordinates.
+-   **Weather Details:** Display current temperature, hourly and daily forecasts, and air pollution.
+-   **Theme Switcher:** Toggle between light and dark themes, with user preference stored in local storage.
+-   **Progressive Web App (PWA):** Enhance user experience with PWA capabilities.
+-   **TypeScript:** Codebase is developed in TypeScript for improved maintainability.
+-   **Cypress E2E Testing:** Rigorous testing with Cypress to ensure reliability.
 
-Weather Maps and Charts: Dive deeper into meteorological data with interactive maps and charts, providing a comprehensive view of weather patterns and trends.
+## Usage
 
-# Technologies Used:
+1. Clone the repository:
 
-React: A robust and efficient JavaScript library for building user interfaces, ensuring a smooth and responsive experience.
+    ```bash
+    git clone https://github.com/farshaddev/weather-pulse.git
+    ```
 
-OpenWeatherMap API: Harnessing the power of real-time weather data to provide accurate and up-to-date information.
+2. Change into the project directory:
 
-Chart.js: Bringing data to life through interactive and visually appealing charts, enhancing the understanding of weather trends.
+```bash
+cd weather-pulse
+```
 
-# How to Use:
+3. Install dependencies:
 
-Clone the repository: git clone https://github.com/farshaddev/weather-pulse.git
+```bash
+npm install
+```
 
-Install dependencies: npm install
+4. Start the application:
 
-Get your API key from OpenWeatherMap and replace the placeholder in the code.
+```bash
+npm start
+```
 
-Run the app: npm start
+## Available Scripts
 
-Explore, contribute, and stay weather-wise with WeatherPulse!
+Start:
 
-🌦️ Happy coding!
+```bash
+npm start
+```
+
+Build:
+
+```bash
+npm run build
+```
+
+Test:
+
+```bash
+npm test
+```
+
+(For headless testing, use npm run headlesstest)
+
+Eject:
+
+```bash
+npm run eject
+```
+
+## Some Of Technologies Used
+
+-   React
+-   Leaflet
+-   Axios
+-   TypeScript
+-   Tailwind CSS
+-   Cypress
+
+The entire application is tested using Cypress for end-to-end testing.
+
+## Code Formatting
+
+The codebase is formatted with Prettier for improved readability.
+
+## Contributing
+
+Feel free to contribute by opening issues, providing feedback, or submitting pull requests. Your input is highly appreciated!
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/farshaddev/weather-pulse/blob/main/LICENSE) file for details.
