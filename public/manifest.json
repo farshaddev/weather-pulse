@@ -1,25 +1,40 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+	"short_name": "Weather Pulse",
+	"name": "Weather Pulse App",
+	"description": "WeatherPulse: Your go-to React weather app for real-time updates, forecasts, and interactive charts. Stay informed with accurate weather data worldwide.",
+	"icons": [
+		{
+			"src": "favicon.ico",
+			"sizes": "48x48",
+			"type": "image/x-icon"
+		},
+		{
+			"src": "logo192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "logo512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "Screenshot-narrow-388-841.png",
+			"sizes": "388x841",
+			"type": "image/png",
+			"form_factor": "narrow"
+		},
+		{
+			"src": "Screenshot-wide-934-431.png",
+			"sizes": "934x431",
+			"type": "image/png",
+			"form_factor": "wide"
+		}
+	],
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#000000",
+	"background_color": "#ffffff"
 }
