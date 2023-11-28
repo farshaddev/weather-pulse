@@ -15,7 +15,10 @@ const HourlyForecast: React.FC<HourlyForecastProps> = ({
 }) => {
 	return (
 		<>
-			<h3 className="mb-2 text-lg font-medium text-slate-600 dark:text-gray-300">
+			<h3
+				className="mb-2 text-lg font-medium text-slate-600 dark:text-gray-300"
+				data-testid="hourly-forecast"
+			>
 				Today Hourly Forecast
 			</h3>
 			<div className="flex w-full flex-wrap gap-2 md:w-auto 2xl:flex-nowrap">

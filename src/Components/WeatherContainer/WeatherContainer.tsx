@@ -216,7 +216,10 @@ const WeatherContainer: React.FC = () => {
 				currentWeatherData &&
 				WeatherForecastData && (
 					<>
-						<div className="relative z-10 flex w-full flex-col content-start gap-5 sm:flex-row">
+						<div
+							className="relative z-10 flex w-full flex-col content-start gap-5 sm:flex-row"
+							data-testid="weather-info"
+						>
 							<CityMapInfo
 								lat={WeatherForecastData.city.coord.lat}
 								lon={WeatherForecastData.city.coord.lon}

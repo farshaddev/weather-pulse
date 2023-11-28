@@ -59,6 +59,7 @@ const MapCoordinates: React.FC<MapCoordinatesProps> = ({
 					<button
 						className="rounded-md bg-indigo-600 p-2 text-gray-100 transition-all duration-200 hover:bg-indigo-700"
 						type="button"
+						data-testid="confirm-coordinates"
 						onClick={handleConfirm}
 					>
 						Confirm Coordinates
