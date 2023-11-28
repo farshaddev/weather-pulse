@@ -25,47 +25,35 @@ The developer's Node.js version for this project is v18.15.0.
 
 2. Change into the project directory:
 
-```bash
-cd weather-pulse
-```
+    ```bash
+    cd weather-pulse
+    ```
 
 3. Install dependencies:
 
-```bash
-npm install
-```
+    ```bash
+    npm install
+    ```
 
 4. Start the application:
 
-```bash
-npm start
-```
+    ```bash
+    npm start
+    ```
 
-## Available Scripts
+## Testing
 
-Start:
-
-```bash
-npm start
-```
-
-Build:
-
-```bash
-npm run build
-```
-
-Test:
+Execute Cypress tests to ensure the stability and functionality of the code:
 
 ```bash
 npm test
 ```
 
-(For headless testing, use npm run headlesstest)
-
-Eject:
+For running tests in headless mode:
 
 ```bash
+npm run headlesstest
+```
 npm run eject
 ```
 
