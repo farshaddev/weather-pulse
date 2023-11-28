@@ -14,7 +14,7 @@ const Menu: React.FC = () => {
 	}`;
 
 	return (
-		<aside className={menuClasses}>
+		<aside className={menuClasses} data-testid="menu">
 			<Logo />
 			<ul className="list-none p-0">
 				{menuItems.map((item, index) => (

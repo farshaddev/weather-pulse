@@ -25,7 +25,7 @@ const CityMapInfo: React.FC<CityMapInfoProps> = ({
 			clickedPosition={[lat, lon]}
 		>
 			<Popup>
-				<div className="map-popup">
+				<div className="map-popup" data-testid="map-popup">
 					<div className="mb-2 flex items-center gap-1 text-sm text-gray-400">
 						<FaMapMarkerAlt />
 						{name}, <span className="font-semibold">{country}</span>

@@ -32,7 +32,10 @@ const CurrentConditions: React.FC<CurrentConditionsProps> = ({
 					className="h-22 w-22"
 				/>
 				<div className="flex items-center gap-2">
-					<p className="text-4xl font-medium text-indigo-600 dark:text-indigo-300 lg:text-5xl">
+					<p
+						className="text-4xl font-medium text-indigo-600 dark:text-indigo-300 lg:text-5xl"
+						data-testid="today-temp"
+					>
 						{main.temp}°C
 					</p>
 				</div>

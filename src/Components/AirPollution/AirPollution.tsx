@@ -23,7 +23,10 @@ const AirPollution: React.FC<AirPollutionProps> = ({ airPollutionData }) => {
 			<div className="flex gap-2">
 				<div className="flex w-2/4 flex-col gap-2 rounded-md bg-indigo-400 p-2 text-center dark:bg-indigo-500">
 					<h4 className="text-xs font-medium text-gray-200">AQI</h4>
-					<p className="text-xs font-medium text-indigo-200">
+					<p
+						className="text-xs font-medium text-indigo-200"
+						data-testid="aqi"
+					>
 						{data.main.aqi}
 					</p>
 				</div>

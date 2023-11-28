@@ -12,7 +12,7 @@ function App(): JSX.Element {
 	const lightClasses = "bg-slate-100 text-black border-gray-300 shadow-lg";
 
 	return (
-		<div className={isDarkMode ? "dark" : ""}>
+		<div className={isDarkMode ? "dark" : ""} data-testid="app">
 			<div className={`app ${darkClasses} ${lightClasses}`}>
 				<Menu />
 				<WeatherContainer />

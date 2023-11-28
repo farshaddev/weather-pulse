@@ -72,6 +72,7 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 			)}
 			<input
 				type="text"
+				data-testid="search-input"
 				className="peer h-8 w-full flex-1 rounded-md bg-slate-200 p-1 drop-shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:bg-slate-600 dark:focus:border-slate-900 dark:focus:ring-slate-900"
 				value={searchTerm}
 				onFocus={handleReset}
@@ -115,6 +116,7 @@ const AutocompleteSearch: React.FC<AutocompleteSearchProps> = ({
 					<ul>
 						{suggestedCities.map((city) => (
 							<li
+								data-testid="suggested-city"
 								key={city.id}
 								className="cursor-pointer rounded-md p-2 text-sm leading-4 hover:bg-gray-300 dark:hover:bg-slate-800"
 								onClick={() => handleCitySelect(city)}

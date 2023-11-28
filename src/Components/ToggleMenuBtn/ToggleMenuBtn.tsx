@@ -17,6 +17,7 @@ const ToggleMenuBtn: React.FC = () => {
 	return (
 		<button
 			type="button"
+			data-testid="toggle-menu-btn"
 			onClick={toggleMenu}
 			className={
 				"flex w-8 cursor-pointer flex-col justify-center gap-1 rounded-md border-0 bg-gray-300 p-2 dark:bg-gray-600"
