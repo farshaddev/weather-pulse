@@ -1,6 +1,6 @@
 # Weather Pulse
 
-Weather Pulse is a React portfolio project that offers real-time weather information, featuring a Leaflet map, autocomplete, and various weather details. The application is fully responsive, with a toggle menu, theme switcher, and PWA support. Developed in TypeScript and tested with Cypress for end-to-end functionality.
+Weather Pulse is a React project that offers real-time weather information, featuring a Leaflet map, autocomplete, and various weather details. The application is fully responsive, with a toggle menu, theme switcher, and PWA support. Developed in TypeScript and tested with Cypress for end-to-end functionality.
 
 ## Developer Note
 
